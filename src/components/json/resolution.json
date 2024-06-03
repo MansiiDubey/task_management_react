@@ -1,0 +1,95 @@
+{
+  "title": "Resolution",
+  "display": "form",
+  "components": [
+    {
+      "label": "Subject",
+      "placeholder": "subject",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "subject",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Description",
+      "placeholder": "description",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "description",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Incident number",
+      "placeholder": "incident number",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "incidentNumber",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Initiator_user",
+      "placeholder": "initiator_user",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "initiator_user",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Initiator",
+      "placeholder": "initiator",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "initiator",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Resolved by",
+      "placeholder": "resolved by",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "resolvedBy",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Resolution date",
+      "placeholder": "resolution date",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "resolutionDate",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Resolution description",
+      "placeholder": "resolution description",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "resolutionDescription",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Preventive actions",
+      "placeholder": "preventive actions",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "preventiveActions",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Submit",
+      "showValidations": false,
+      "tableView": false,
+      "key": "submit",
+      "type": "button",
+      "input": true
+    }
+  ]
+}

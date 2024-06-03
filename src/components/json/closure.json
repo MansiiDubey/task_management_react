@@ -1,0 +1,95 @@
+{
+  "title": "closure",
+  "display": "form",
+  "components": [
+    {
+      "label": "Subject",
+      "placeholder": "subject",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "subject",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Incident number",
+      "placeholder": "incident number",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "incidentNumber",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Initiator user",
+      "placeholder": "initiator user",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "initiator_user",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Description",
+      "placeholder": "description",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "description",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Initiator",
+      "placeholder": "initiator",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "initiator",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Closed by",
+      "placeholder": "closed by",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "closedBy",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Closure comments",
+      "placeholder": "Closure comments",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "closureComments",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "User feedback",
+      "placeholder": "user feedback",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "userFeedback",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Satisfaction rating",
+      "placeholder": "satisfaction rating",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "satisfactionRating",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Submit",
+      "showValidations": false,
+      "tableView": false,
+      "key": "submit",
+      "type": "button",
+      "input": true
+    }
+  ]
+}

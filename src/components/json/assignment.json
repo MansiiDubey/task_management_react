@@ -1,0 +1,95 @@
+ {
+ "title": "assignment",
+ "display": "form",
+ "components": [
+  {
+    "label": "Subject",
+    "placeholder": "subject",
+    "applyMaskOn": "change",
+    "tableView": true,
+    "key": "subject",
+    "type": "textfield",
+    "input": true
+  },
+  {
+    "label": "Description",
+    "placeholder": "description",
+    "applyMaskOn": "change",
+    "tableView": true,
+    "key": "description",
+    "type": "textfield",
+    "input": true
+  },
+  {
+    "label": "Incident Number",
+    "placeholder": "incident number",
+    "applyMaskOn": "change",
+    "tableView": true,
+    "key": "incidentNumber",
+    "type": "textfield",
+    "input": true
+  },
+  {
+    "label": "Initiator_User",
+    "placeholder": "initiator_user",
+    "applyMaskOn": "change",
+    "tableView": true,
+    "key": "initiator_user",
+    "type": "textfield",
+    "input": true
+  },
+  {
+    "label": "Initiator",
+    "placeholder": "Initiator",
+    "applyMaskOn": "change",
+    "tableView": true,
+    "key": "initiator",
+    "type": "textfield",
+    "input": true
+  },
+    {
+      "label": "Assigned to Group",
+      "placeholder": "assigned to group",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "assignedToGroup",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Assigned to User",
+      "placeholder": "assigned to user",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "assignedToUser",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Incident Description",
+      "placeholder": "incident description",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "incidentDescription",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Assigned to",
+      "placeholder": "assigned to",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "assignedTo",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Submit",
+      "showValidations": false,
+      "tableView": false,
+      "key": "submit",
+      "type": "button",
+      "input": true
+    }
+  ]
+ }

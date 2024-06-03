@@ -1,0 +1,95 @@
+{
+  "title": "Initial Assessment",
+  "display": "form",
+  "components": [
+    {
+      "label": "Subject",
+      "placeholder": "subject",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "subject",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Incident number",
+      "placeholder": "incident number",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "incidentNumber",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Initiator_user",
+      "placeholder": "initiator_user",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "initiator_user",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Description",
+      "placeholder": "description",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "description",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Initiator",
+      "placeholder": "initiator",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "initiator",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Assigned to",
+      "placeholder": "assigned to",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "assignedTo",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Description",
+      "placeholder": "assessment Description",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "assessmentDescription",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Initial Actions Taken",
+      "placeholder": "initial Actions Taken",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "initialActionsTaken",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Remark",
+      "placeholder": "remarks",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "remarkAssessment",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Submit",
+      "showValidations": false,
+      "tableView": false,
+      "key": "submit",
+      "type": "button",
+      "input": true
+    }
+  ]
+}
