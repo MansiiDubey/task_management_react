@@ -5,19 +5,69 @@ import { Link } from 'react-router-dom';
 export const UserList = () => {
     const [data, setData] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axiosInstance.get('/users');
-                console.log("user list", response.data);
-                setData(response.data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
+    const fetchData = async () => {
+        try {
+            const response = await axiosInstance.get('/users');
+            const responseData = response.data
+            console.log("user list", responseData);
 
+            const userWithRoles = await Promise.all(
+                responseData.map(async (user)=>{
+                    try {
+                        const roles = await Promise.all(
+                            user.roleId.map(async (roleId)=>{
+                                try {
+                                    const roleResponse = await axiosInstance.get(`/api/roles/${roleId}`);
+                                    return roleResponse.data.name
+                                } catch (error) {
+                                    console.log("error in role",error)
+                                }
+                            })
+                        )
+
+                        const groups = await Promise.all(
+                            user.group.map(async (groupId)=>{
+                                try {
+                                    const groupResponse = await axiosInstance.get(`/api/groups/${groupId}`);
+                                        return groupResponse.data.name
+                                } catch (error) {
+                                    console.log("error in group",error)
+                                }
+                            })
+                        )
+                        return {...user,roles,groups}
+                    } catch (error) {
+                        console.log("error in role",error)
+                    }
+                })
+            )
+
+        console.log("userWithRoles",userWithRoles)
+
+            setData(userWithRoles);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+        
+
+
+    useEffect(() => {
         fetchData();
     }, []);
+
+    const deleteData = async (userId) => {
+        console.log("delete user", userId)
+        try {
+            const response = await axiosInstance.delete(`/${userId}`)
+            console.log("deleted user", response.data)
+            fetchData();
+        } catch (error) {
+            console.error('Error deleted user:', error);
+        }
+    }
+
+
 
     const formatGroup = (group) => {
         if (Array.isArray(group)) {
@@ -28,7 +78,7 @@ export const UserList = () => {
 
     const formatRoles = (roles) => {
         if (Array.isArray(roles)) {
-            return roles.map(role => role.name).join(', ');
+            return roles.join(', ');
         }
         return roles; // Return the value directly if it's not an array
     };
@@ -57,6 +107,7 @@ export const UserList = () => {
                                                         <th>Email</th>
                                                         <th>Group</th>
                                                         <th>Roles</th>
+                                                        <th>Delete</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -67,8 +118,9 @@ export const UserList = () => {
                                                             <td>{user.firstName}</td>
                                                             <td>{user.lastName}</td>
                                                             <td>{user.email}</td>
-                                                            <td>{formatGroup(user.group)}</td>
+                                                            <td>{formatGroup(user.groups)}</td>
                                                             <td>{formatRoles(user.roles)}</td>
+                                                            <td><button onClick={() => deleteData(user.userId)}>Delete</button></td>
                                                             <td>
                                                                 <Link to={`/updateprofile/${user.userId}`}>
                                                                     <button>Update</button>
