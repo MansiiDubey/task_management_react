@@ -14,7 +14,7 @@ const initialValues = {
 export const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
-    const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit ,isSubmitting } =
         useFormik({
             initialValues: initialValues,
             validationSchema: loginSchema,
@@ -137,7 +137,7 @@ export const Login = () => {
                                         </div>
                                     </div>
                                     <div className="mb-3">
-                                        <button className="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                                        <button className="btn btn-primary d-grid w-100" type="submit" disabled={isSubmitting}>Sign in</button>
                                     </div>
                                 </form>
 
