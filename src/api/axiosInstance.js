@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { getToken } from '../components/PrivateRoute';
 
-const apiUrl = process.env.REACT_APP_API_URL;
+export const apiUrl = process.env.REACT_APP_API_URL;
 
 const axiosInstance = axios.create({
   baseURL: apiUrl,
@@ -9,7 +10,7 @@ console.log("apiUrl",apiUrl)
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = getToken()
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }

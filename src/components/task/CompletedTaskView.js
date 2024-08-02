@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import MainJson from '../json/closure.json';
 import { Button } from 'react-bootstrap';
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
+import { fetchCompletedTaskByTaskKey } from '../../services/TaskService';
 
 
 export const CompletedTaskView = () => {
@@ -14,6 +15,7 @@ export const CompletedTaskView = () => {
     const taskKey = useParams().id;
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [processDefKey, setprocessdefkey] = useState();
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);
@@ -25,8 +27,8 @@ export const CompletedTaskView = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axiosInstance.get(`/user-task?status=COMPLETED&taskKey=${taskKey}&from=0`);
-            console.log("fetchData response:", response);
+            const response = await fetchCompletedTaskByTaskKey(taskKey);
+            console.log("fetchData response:", response?.data[0]);
 
             const task = response?.data[0];
             if (!task) {
@@ -36,17 +38,10 @@ export const CompletedTaskView = () => {
             const form = task.taskId;
             setFormName(form);
 
-            // const responseJSON = await fetch(`/src/components/json/${form}.json`);
-            // if (!responseJSON.ok) {
-            //     throw new Error(
-            //         `Failed to fetch JSON: ${responseJSON.status} ${responseJSON.statusText}`
-            //     );
-            // }
+            const json = await import(`../json/${form}.json`);
+            console.log("Fetched  form JSON:", json);
 
-            // const json = await responseJSON.json();
-            // console.log("Fetched form JSON:", json);
-
-            setFormJson(MainJson);
+            setFormJson(json.default);
             setLoading(false);
         } catch (error) {
             console.error("Error fetching task details:", error);

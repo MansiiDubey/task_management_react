@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import axiosInstance from '../../api/axiosInstance';
 import { AiFillAmazonCircle } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { BsPencilSquare } from 'react-icons/bs';
+import { fetchCompletedTask } from '../../services/TaskService';
 
 export const CompletedTask = () => {
 
     const [completedtasks, setCompletedtasks] = useState([]);
 
-    const fetchCompletedTask = async () => {
-        const response = await axiosInstance.get(`/user-task?status=COMPLETED&from=0`);
-        console.log("completed task", response.data);
-        setCompletedtasks(response.data);
+    const handleCompletedTask = async () => {
+        const response = await fetchCompletedTask();
+        console.log("completed task", response);
+        setCompletedtasks(response);
 
     }
     useEffect(() => {
-        fetchCompletedTask()
+        handleCompletedTask()
     }, [])
+
+    const formatDate = (dateTimeStr) => {
+        if (!dateTimeStr) return " - "; 
+        const date = new Date(dateTimeStr);
+        const options = { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+        return date.toLocaleDateString('en-US', options);
+      };
+    
 
     return (
 
@@ -55,8 +63,8 @@ export const CompletedTask = () => {
                                                         <td>{task.assignee}</td>
                                                         <td>{task.bpmnProcessId}</td>
                                                         <td>{task.intent}</td>
-                                                        <td>{task.creationTimestamp}</td>
-                                                        <td>{task.timestamp}</td>
+                                                        <td>{formatDate(task.creationTimestamp)}</td>
+                                                        <td>{formatDate(task.timestamp)}</td>
                                                         <td>
                                                         <Link to={`/completedtaskview/${task.userTaskKey}`}>
                                                         <BsPencilSquare />

@@ -1,31 +1,17 @@
-import React from 'react'
-import { Helmet } from 'react-helmet'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { Nav, Navbar, Dropdown } from 'react-bootstrap';
-import axios from 'axios';
+import { getUsername } from '../PrivateRoute';
 import axiosInstance from '../../api/axiosInstance';
-
 export const NavbarUp = () => {
 
-    const navigate = useNavigate();
-    const handleLogout = async () => {
-        try {
-            console.log("inside function")
-             await axiosInstance.post('/api/auth/logout');
-            localStorage.removeItem("token");
-            console.log("completed function")
-            navigate('/login')
-            console.log("User logged out!");
-          } catch (error) {
-            console.error('Error logging out:', error);
-          }
-    };
 
-    var username = localStorage.getItem("profile");
+    var username = getUsername();
+
     const generateAvatarUrl = (userName) => {
         const formattedUserName = userName?.replace(/\s+/g, '+');
         return `https://ui-avatars.com/api/?name=${formattedUserName}&background=random&rounded=true&size=100`;
-      };
+    };
 
 
     return (
@@ -79,11 +65,11 @@ export const NavbarUp = () => {
                                     </div>
                                 </Dropdown.Item>
                                 <Dropdown.Divider />
-                                <Dropdown.Item as={Link} to="/userprofile"><i className="bx bx-user me-2"></i><span className="align-middle">User Profile</span></Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/updateprofile"><i className="bx bx-cog me-2"></i><span className="align-middle">Update Profile</span></Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/user-detail"><i className="bx bx-user me-2"></i><span className="align-middle">Profile</span></Dropdown.Item>
+                                {/* <Dropdown.Item as={Link} to="/updateprofile"><i className="bx bx-cog me-2"></i><span className="align-middle">Update Profile</span></Dropdown.Item> */}
                                 {/* <Dropdown.Item as={Link} to="/updateprofile2"><i className="flex-shrink-0 bx bx-credit-card me-2"></i><span className="flex-grow-1 align-middle ms-1">UpdateProfile2</span><span className="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span></Dropdown.Item>
                                 <Dropdown.Divider /> */}
-                                <Dropdown.Item onClick={handleLogout}><i className="bx bx-power-off me-2"></i><span className="align-middle">Log Out</span></Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/logout"><i className="bx bx-power-off me-2"></i><span className="align-middle">Log Out</span></Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </Nav.Item>

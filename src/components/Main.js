@@ -9,11 +9,15 @@ import { NavbarUp } from './common/NavbarUp'
 import { Taskview } from './task/Taskview'
 import { UpdateProfile } from './user/UpdateProfile'
 import { UserList } from './user/UserList'
-import { UpdateProfile2 } from './user/UpdateProfile2'
+import { UpdateRoles } from './user/UpdateRoles'
 import { Forms } from './form/Forms'
 import { CompletedTask } from './task/CompletedTask'
 import { CompletedTaskView } from './task/CompletedTaskView'
 import { ProcessTask } from './task/ProcessTask'
+import { Roles } from './user/Roles'
+import { CreateRoles } from './user/CreateRoles'
+import { UserDetails } from './user/UserDetails'
+import { CreateUser } from './user/CreateUser'
 
 
 export const Main = () => {
@@ -29,15 +33,19 @@ export const Main = () => {
                                 <Routes>
                                     <Route path='/' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
                                     <Route path='/task' element={<PrivateRoute><Task /></PrivateRoute>} />
-                                    <Route path='/updateprofile/:id' element={<PrivateRoute><UpdateProfile /></PrivateRoute>} />
-                                    <Route path='/userprofile' element={<PrivateRoute><UserProfile /></PrivateRoute>} />
+                                    <Route path='/update-profile/:id' element={<PrivateRoute><UpdateProfile /></PrivateRoute>} />
+                                    {/* <Route path='/userprofile' element={<PrivateRoute><UserProfile /></PrivateRoute>} /> */}
                                     <Route path='/taskview/:id' element={<PrivateRoute><Taskview /></PrivateRoute>} />
-                                    <Route path='/userlist' element={<PrivateRoute><UserList/></PrivateRoute>} />
-                                    <Route path='/updateprofile2' element={<PrivateRoute><UpdateProfile2/></PrivateRoute>} />
+                                    <Route path='/user-list' element={<PrivateRoute><UserList/></PrivateRoute>} />
+                                    <Route path='/updateroles/:id' element={<PrivateRoute><UpdateRoles/></PrivateRoute>} />
                                     <Route path='/forms' element={<PrivateRoute><Forms/></PrivateRoute>} />
                                     <Route path='/completedtask' element={<PrivateRoute><CompletedTask/></PrivateRoute>} />
                                     <Route path='/processtask' element={<PrivateRoute><ProcessTask/></PrivateRoute>} />
                                     <Route path='/completedtaskview/:id' element={<PrivateRoute><CompletedTaskView/></PrivateRoute>} />
+                                    <Route path='/roles' element={<PrivateRoute><Roles/></PrivateRoute>} />
+                                    <Route path='/createroles' element={<PrivateRoute><CreateRoles/></PrivateRoute>} />
+                                    <Route path='/user-detail' element={<PrivateRoute><UserDetails/></PrivateRoute>} />
+                                    <Route path='/create-user' element={<PrivateRoute><CreateUser/></PrivateRoute>} />
                                   </Routes>
                             </div>
                         </div>

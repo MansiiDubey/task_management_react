@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axiosInstance from '../../api/axiosInstance'
+import { fetchCompletedTaskData, fetchProcessCompletedData, fetchProcessInProgressData, fetchTaskInProgressData } from '../../services/DashboardService';
 
 export const Dashboard = () => {
 
@@ -15,21 +16,21 @@ export const Dashboard = () => {
         const fetchDashboardData = async () => {
             try {
 
-                const completedTaskResponse = await axiosInstance.get('/dash-board/completed-task');
-                console.log("setCompletedTaskData", completedTaskResponse.data);
-                setCompletedTaskData(completedTaskResponse.data)
+                const completedTaskResponse = await fetchCompletedTaskData();
+                console.log("setCompletedTaskData", completedTaskResponse);
+                setCompletedTaskData(completedTaskResponse)
 
-                const taskInProgressResponse = await axiosInstance.get('/dash-board/task/in-progress');
-                console.log("setTaskInProgress", taskInProgressResponse.data);
-                setTaskInProgress(taskInProgressResponse.data)
+                const taskInProgressResponse = await fetchTaskInProgressData();
+                console.log("setTaskInProgress", taskInProgressResponse);
+                setTaskInProgress(taskInProgressResponse)
 
-                const processInProgressResponse = await axiosInstance.get('/dash-board/process/in-progress');
-                console.log("setProcessInProgress", processInProgressResponse.data);
-                setProcessInProgress(processInProgressResponse.data)
+                const processInProgressResponse = await fetchProcessInProgressData();
+                console.log("setProcessInProgress", processInProgressResponse);
+                setProcessInProgress(processInProgressResponse)
 
-                const processCompletedResponse = await axiosInstance.get('/dash-board/process/completed');
-                console.log("setProcessCompletedResponse", processCompletedResponse.data);
-                setProcessCompletedData(processCompletedResponse.data)
+                const processCompletedResponse = await fetchProcessCompletedData();
+                console.log("setProcessCompletedResponse", processCompletedResponse);
+                setProcessCompletedData(processCompletedResponse)
 
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -55,17 +56,17 @@ export const Dashboard = () => {
                                         <i className="bx bx-list-check" />
                                     </span>
                                 </div>
-                                <h4 className="ms-1 mb-0">Task</h4>
+                                <h3 className="ms-1 mb-0">Task</h3>
                             </div>
-                            <h5>
+                            <h4>
 
                                 {completedTaskData}
-                            </h5>
-                            <p className="mb-1">On route vehicles</p>
+                            </h4>
+                            {/* <p className="mb-1">On route vehicles</p>
                             <p className="mb-0">
                                 <span className="fw-medium me-1">+18.2%</span>
                                 <small className="text-muted">than last week</small>
-                            </p>
+                            </p> */}
                         </div>
                     </div>
                 </div>
@@ -78,17 +79,17 @@ export const Dashboard = () => {
                                         <i className="bx bx-error" />
                                     </span>
                                 </div>
-                                <h5 className="ms-1 mb-0">Process</h5>
+                                <h3 className="ms-1 mb-0">Process</h3>
                             </div>
-                            <h5>
+                            <h4>
                                 {taskInProgress}
-                            </h5>
+                            </h4>
 
-                            <p className="mb-1">Vehicles with errors</p>
+                            {/* <p className="mb-1">Vehicles with errors</p>
                             <p className="mb-0">
                                 <span className="fw-medium me-1">-8.7%</span>
                                 <small className="text-muted">than last week</small>
-                            </p>
+                            </p> */}
                         </div>
                     </div>
                 </div>
@@ -101,15 +102,17 @@ export const Dashboard = () => {
                                         <i className="bx bx-git-repo-forked" />
                                     </span>
                                 </div>
-                                <h5 className="ms-1 mb-0">Completed</h5>
+                                <h3 className="ms-1 mb-0">Completed</h3>
                             </div>
-                            <h5>{processInProgressData}</h5>
+                            <h4>
+                                {processInProgressData}
+                                </h4>
 
-                            <p className="mb-1">Deviated from route</p>
+                            {/* <p className="mb-1">Deviated from route</p>
                             <p className="mb-0">
                                 <span className="fw-medium me-1">+4.3%</span>
                                 <small className="text-muted">than last week</small>
-                            </p>
+                            </p> */}
                         </div>
                     </div>
                 </div>
@@ -122,21 +125,20 @@ export const Dashboard = () => {
                                         <i className="bx bx-time-five" />
                                     </span>
                                 </div>
-                                <h4 className="ms-1 mb-0">Comments</h4>
+                                <h3 className="ms-1 mb-0">Comments</h3>
                             </div>
-                            <h5>
+                            <h4>
                                 {processCompletedData}
-                            </h5>
-                            <p className="mb-1">Late vehicles</p>
+                            </h4>
+                            {/* <p className="mb-1">Late vehicles</p>
                             <p className="mb-0">
                                 <span className="fw-medium me-1">-2.5%</span>
                                 <small className="text-muted">than last week</small>
-                            </p>
+                            </p> */}
                         </div>
                     </div>
                 </div>
             </div>
-            {/*/ Card Border Shadow */}
             
         </>
     )

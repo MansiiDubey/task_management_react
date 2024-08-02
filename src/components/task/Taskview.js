@@ -1,22 +1,22 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import axiosInstance from '../../api/axiosInstance';
 import { Form } from '@formio/react';
-import JsonFile from '../json/startProcess.json';
 import '../../assets/css/formio.css';
 import { Comments } from '../common/Comments';
 import { Audits } from '../common/Audits';
 import { Link, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
+import { fetchUserTaskByTaskKey, fetchFormJsonByTaskName, submitTaskData } from '../../services/TaskService';
+import { apiUrl } from '../../api/axiosInstance';
 
 export const Taskview = () => {
     const [activeTab, setActiveTab] = useState('form');
     const taskId = useParams().id;
-
-    const handleTabClick = (tab) => {
-        setActiveTab(tab);
-    };
+    const [formName, setFormName] = useState();
+    const [formJson, setFormJson] = useState(null);
+    const [variables, setVariables] = useState({});
+    const [processKey, setProcessKey] = useState();
 
     useEffect(() => {
         fetchData();
@@ -24,18 +24,48 @@ export const Taskview = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axiosInstance.get(`/user-task?from=0&taskKey=${taskId}`);
-            console.log("fetching data", response.data);
-            console.log("TASK NAME", response.data[0].taskId);
+            // Fetch task data
+            const response = await fetchUserTaskByTaskKey(taskId);
+            // console.log("response",response.data[0].processInstanceKey)
+            const form = response.data[0].taskId;
+            console.log("fetching data", response.data[0]);
+            setFormName(form);
+            const proKey = response.data[0].processInstanceKey;
+            console.log("proKey",proKey);
+            setProcessKey(proKey);
+
+            const responseForm = await fetch(`/json/${form}.json`);
+
+            if (!responseForm.ok) {
+                throw new Error(
+                    `Failed to fetch JSON: ${responseForm.status} ${responseForm.statusText}`
+                );
+            }
+
+            const json = await responseForm.json();
+
+             // Extract variables and set them in state
+             const { variables } = response.data[0];
+             setVariables(variables);
+
+            const jsonString = JSON.stringify(json);
+            const modifiedJsonString = jsonString.replace(/http:\/\/localhost/g, apiUrl);
+            const modifiedJson = JSON.parse(modifiedJsonString);
+            
+            setFormJson(modifiedJson);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
 
+    const handleTabClick = (tab) => {
+        setActiveTab(tab);
+    };
+
     const formHandleSubmit = async (submission) => {
         try {
             console.log("Submission data:", submission.data);
-            const response = await axiosInstance.post("/process/start?processDefinitionId=process_incident_management", submission.data);
+            const response = await submitTaskData(submission.data);
             console.log("Submitted data:", response.data);
         } catch (error) {
             console.error('Error submitting form:', error);
@@ -100,18 +130,23 @@ export const Taskview = () => {
                     <div className="card mb-4">
                         {activeTab === 'form' && (
                             <div className="card-body">
-                                <h3 className="card-header">Form</h3>
-                                <Form
-                                    className='form-container'
-                                    form={JsonFile}
-                                    onSubmit={formHandleSubmit}
-                                />lllll
+                                <h3 className="card-header">{formName?.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</h3>
+                                {formJson ? (
+                                    <Form
+                                        className='form-container'
+                                        form={formJson}
+                                        submission={{ data: variables }} // Populate form with variables
+                                        onSubmit={formHandleSubmit}
+                                    />
+                                ) : (
+                                    <p>Loading form...</p>
+                                )}
                             </div>
                         )}
                         {activeTab === 'comments' && (
                             <div className="card-body">
                                 <h3 className="card-header">Comments</h3>
-                                <Comments />
+                                <Comments process={processKey}/>
                             </div>
                         )}
                         {activeTab === 'diagram' && (

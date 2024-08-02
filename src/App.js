@@ -8,6 +8,7 @@ import { Dashboard } from './components/dashboard/Dashboard';
 import { Task } from './components/task/Task';
 import { UserProfile } from './components/user/UserProfile';
 import { Main } from './components/Main';
+import { Logout } from './components/auth/Logout';
 
 
 
@@ -30,18 +31,12 @@ function App() {
         <link rel="stylesheet" href="../assets/css/demo.css" />
         <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
         <link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css" />
-        <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
-        <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-        <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-        {/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="https://cdn.form.io/formiojs/formio.full.min.css"/>
-<script src="https://cdn.form.io/formiojs/formio.full.min.js"></script> */}
-
       </Helmet>
 
       <Routes>
         <Route path='/sign-up' element={<Registration />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/logout' element={<Logout />} />
         <Route path='/*' element={<Main />} />
 
         {/* <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />

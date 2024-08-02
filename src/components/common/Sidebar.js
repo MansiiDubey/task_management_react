@@ -34,7 +34,7 @@ export const Sidebar = () => {
             <ul className="menu-inner py-1 overflow-auto">
                 {/* Dashboards */}
                 <li className="menu-item">
-                    <Link to={'/'} className="menu-link menu-toggle">
+                    <Link to={'/'} className="menu-link">
                         <i className="menu-icon tf-icons bx bx-home-circle" />
                         <div className="text-truncate" data-i18n="Dashboards">
                             Dashboard
@@ -45,30 +45,15 @@ export const Sidebar = () => {
                 </li>
                 {/* Layouts */}
                 <li className="menu-item">
-                    <Link to={'/task'} className="menu-link menu-toggle">
+                    <Link to={'/task'} className="menu-link">
                         <i className="menu-icon tf-icons bx bx-layout" />
                         <div className="text-truncate" data-i18n="Layouts">
                             Task
                         </div>
                     </Link>
                 </li>
-                {/* Front Pages */}
                 <li className="menu-item">
-                    <Link to={'/userprofile'} className="menu-link menu-toggle">
-                        <i className="menu-icon tf-icons bx bx-store" />
-                        <div className="text-truncate" data-i18n="Front Pages">
-                            UserProfile
-                        </div>
-                    </Link>
-                </li>
-                {/* Apps & Pages */}
-                <li className="menu-header small text-uppercase">
-                    <span className="menu-header-text" data-i18n="Apps & Pages">
-                        Apps &amp; Pages
-                    </span>
-                </li>
-                <li className="menu-item">
-                    <Link to={'/userlist'} className="menu-link">
+                    <Link to={'/user-list'} className="menu-link">
                         <i className="menu-icon tf-icons bx bx-envelope" />
                         <div className="text-truncate" data-i18n="Email">
                             Users
@@ -99,14 +84,14 @@ export const Sidebar = () => {
                         </div>
                     </Link>
                 </li>
-                {/* e-commerce-app menu start */}
+
                 <li className="menu-item">
-                    <a href="" className="menu-link menu-toggle">
+                    <Link to={'/roles'} className="menu-link">
                         <i className="menu-icon tf-icons bx bx-cart-alt" />
                         <div className="text-truncate" data-i18n="eCommerce">
-                            eCommerce
+                            Roles
                         </div>
-                    </a>
+                    </Link>
                     <ul className="menu-sub">
                         <li className="menu-item">
                             <a href="app-ecommerce-dashboard.html" className="menu-link">
@@ -379,7 +364,7 @@ export const Sidebar = () => {
                     </ul>
                 </li>
                 {/* Academy menu end */}
-                <li className="menu-item active open">
+                <li className="menu-item">
                     <a href="" className="menu-link menu-toggle">
                         <i className="menu-icon tf-icons bx bx-car" />
                         <div className="text-truncate" data-i18n="Logistics">
@@ -387,7 +372,7 @@ export const Sidebar = () => {
                         </div>
                     </a>
                     <ul className="menu-sub">
-                        <li className="menu-item active">
+                        <li className="menu-item">
                             <a href="app-logistics-dashboard.html" className="menu-link">
                                 <div className="text-truncate" data-i18n="Dashboard">
                                     Dashboard
@@ -1503,74 +1488,6 @@ export const Sidebar = () => {
                             </a>
                         </li>
                     </ul>
-                </li>
-                {/* Charts & Maps */}
-                <li className="menu-header small text-uppercase">
-                    <span className="menu-header-text" data-i18n="Charts & Maps">
-                        Charts &amp; Maps
-                    </span>
-                </li>
-                <li className="menu-item">
-                    <a href="" className="menu-link menu-toggle">
-                        <i className="menu-icon tf-icons bx bx-chart" />
-                        <div className="text-truncate" data-i18n="Charts">
-                            Charts
-                        </div>
-                    </a>
-                    <ul className="menu-sub">
-                        <li className="menu-item">
-                            <a href="charts-apex.html" className="menu-link">
-                                <div className="text-truncate" data-i18n="Apex Charts">
-                                    Apex Charts
-                                </div>
-                            </a>
-                        </li>
-                        <li className="menu-item">
-                            <a href="charts-chartjs.html" className="menu-link">
-                                <div className="text-truncate" data-i18n="ChartJS">
-                                    ChartJS
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li className="menu-item">
-                    <a href="maps-leaflet.html" className="menu-link">
-                        <i className="menu-icon tf-icons bx bx-map-alt" />
-                        <div className="text-truncate" data-i18n="Leaflet Maps">
-                            Leaflet Maps
-                        </div>
-                    </a>
-                </li>
-                {/* Misc */}
-                <li className="menu-header small text-uppercase">
-                    <span className="menu-header-text" data-i18n="Misc">
-                        Misc
-                    </span>
-                </li>
-                <li className="menu-item">
-                    <a
-                        href="https://themeselection.com/support/"
-                        target="_blank"
-                        className="menu-link"
-                    >
-                        <i className="menu-icon tf-icons bx bx-support" />
-                        <div className="text-truncate" data-i18n="Support">
-                            Support
-                        </div>
-                    </a>
-                </li>
-                <li className="menu-item">
-                    <a
-                        href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                        target="_blank"
-                        className="menu-link"
-                    >
-                        <i className="menu-icon tf-icons bx bx-file" />
-                        <div className="text-truncate" data-i18n="Documentation">
-                            Documentation
-                        </div>
-                    </a>
                 </li>
             </ul>
         </aside>

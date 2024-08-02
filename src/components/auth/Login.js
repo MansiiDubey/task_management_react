@@ -22,7 +22,7 @@ export const Login = () => {
                 try {
                     console.log("values", values);
                     const response = await axiosInstance.post('/api/auth/login', values);
-                    localStorage.setItem("profile", values.username);
+                    // localStorage.setItem("profile", values.username);
                     const responseData = response.data;
                     console.log("response", responseData);
 
@@ -89,6 +89,7 @@ export const Login = () => {
                                             className="form-control"
                                             id="username"
                                             name="username"
+                                            // value="Hardik"
                                             value={values.username}
                                             onChange={handleChange}
                                             onBlur={handleBlur}
