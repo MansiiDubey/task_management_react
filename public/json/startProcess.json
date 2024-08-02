@@ -1,0 +1,187 @@
+{
+  "display": "form",
+  "components": [
+    {
+      "label": "Category",
+      "widget": "choicesjs",
+      "tableView": true,
+      "dataSrc": "url",
+      "data": {
+        "url": "http://localhost/api/categories",
+        "headers": [
+          {
+            "key": "",
+            "value": ""
+          }
+        ]
+      },
+      "valueProperty": "id",
+      "template": "<span>{{ item.name }}</span>",
+      "key": "category",
+      "type": "select",
+      "input": true,
+      "disableLimit": false,
+      "noRefreshOnScroll": false,
+      "placeholder": "Select your category"
+    },
+    {
+      "label": "Sub category",
+      "widget": "html5",
+      "tableView": true,
+      "dataSrc": "url",
+      "data": {
+        "url": "http://localhost/api/subcategories/category/{{ row.category }}/sub-categories",
+        "headers": [
+          {
+            "key": "",
+            "value": ""
+          }
+        ]
+      },
+      "valueProperty": "id",
+      "template": "<span>{{ item.name }}</span>",
+      "refreshOn": "category",
+      "clearOnRefresh": true,
+      "key": "subCategory",
+      "type": "select",
+      "disableLimit": false,
+      "noRefreshOnScroll": false,
+      "input": true,
+      "placeholder": "Select your sub category"
+    },
+    {
+      "label": "ContactType",
+      "widget": "html5",
+      "tableView": true,
+      "data": {
+        "values": [
+          {
+            "label": "Phone",
+            "value": "phone"
+          },
+          {
+            "label": "Email",
+            "value": "email"
+          }
+        ]
+      },
+      "key": "contactType",
+      "type": "select",
+      "input": true,
+      "placeholder": "ContactType"
+    },
+    {
+      "label": "Subject",
+      "placeholder": "Enter Subject",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "subject",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Priority",
+      "widget": "html5",
+      "placeholder": "Select any one",
+      "tableView": true,
+      "data": {
+        "values": [
+          {
+            "label": "High",
+            "value": "high"
+          },
+          {
+            "label": "Medium",
+            "value": "medium"
+          },
+          {
+            "label": "Low",
+            "value": "low"
+          }
+        ]
+      },
+      "key": "priority",
+      "type": "select",
+      "input": true
+    },
+    {
+      "label": "Impact",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "impact",
+      "type": "textfield",
+      "input": true,
+      "placeholder": "Impact"
+    },
+    {
+      "label": "Impact area",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "impactArea",
+      "type": "textfield",
+      "input": true,
+      "placeholder": "Impact area"
+    },
+    {
+      "label": "Urgency",
+      "tableView": true,
+      "widget": "html5",
+      "placeholder": "Select any one",
+      "data": {
+        "values": [
+          {
+            "label": "High",
+            "value": "high"
+          },
+          {
+            "label": "Medium",
+            "value": "medium"
+          },
+          {
+            "label": "Low",
+            "value": "low"
+          }
+        ]
+      },
+      "key": "urgency",
+      "type": "select",
+      "input": true
+    },
+    {
+      "label": "Status reason",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "statusReason",
+      "type": "textfield",
+      "input": true,
+      "placeholder": "Status reason"
+    },
+    {
+      "label": "Location",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "location",
+      "type": "textfield",
+      "input": true,
+      "placeholder": "Location"
+    },
+    {
+      "label": "Description",
+      "applyMaskOn": "change",
+      "autoExpand": true,
+      "tableView": true,
+      "key": "description",
+      "type": "textarea",
+      "input": true,
+      "placeholder": "Description"
+    },
+    {
+      "label": "Submit",
+      "showValidations": false,
+      "tableView": false,
+      "key": "submit",
+      "type": "button",
+      "input": true
+    }
+  ]
+}

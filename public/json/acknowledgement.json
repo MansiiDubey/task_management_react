@@ -1,0 +1,68 @@
+{
+  "title": "acknowledgement",
+  "display": "form",
+  "components": [
+    {
+      "label": "Subject",
+      "placeholder": "subject",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "subject",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Incident number",
+      "placeholder": "Incident Number",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "incidentNumber",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Description",
+      "placeholder": "Description",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "description",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Initiator",
+      "placeholder": "Initiator",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "initiator",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Acknowledged By",
+      "placeholder": "Acknowledged By",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "acknowledgedBy",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Comments",
+      "placeholder": "Comments",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "acknowledgementComments",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Submit",
+      "showValidations": false,
+      "tableView": false,
+      "key": "submit",
+      "type": "button",
+      "input": true
+    }
+  ]
+}

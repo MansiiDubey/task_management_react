@@ -1,0 +1,125 @@
+{
+  "title": "categorization",
+  "display": "form",
+  "components": [
+    {
+      "label": "Subject",
+      "placeholder": "subject",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "subject",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Description",
+      "placeholder": "description",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "description",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Incident number",
+      "placeholder": "incident number",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "incidentNumber",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Initiator",
+      "placeholder": "initiator",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "initiator",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Category",
+      "widget": "choicesjs",
+      "tableView": true,
+      "dataSrc": "url",
+      "data": {
+        "url": "http://localhost/api/categories",
+        "headers": [
+          {
+            "key": "",
+            "value": ""
+          }
+        ]
+      },
+      "template": "<span>{{ item.name }}</span>",
+      "key": "category",
+      "type": "select",
+      "input": true,
+      "disableLimit": false,
+      "noRefreshOnScroll": false,
+      "placeholder": "Select your category",
+      "disabled": true
+    },
+    {
+      "label": "Sub category",
+      "widget": "html5",
+      "tableView": true,
+      "dataSrc": "url",
+      "data": {
+        "url": "http://localhost/api/subcategories/category/{{ row.category }}/sub-categories",
+        "headers": [
+          {
+            "key": "",
+            "value": ""
+          }
+        ]
+      },
+      "template": "<span>{{ item.name }}</span>",
+      "refreshOn": "category",
+      "clearOnRefresh": true,
+      "key": "subCategory",
+      "type": "select",
+      "disableLimit": false,
+      "noRefreshOnScroll": false,
+      "input": true,
+      "placeholder": "Select your sub category",
+      "disabled": true
+    },
+    {
+      "label": "Priority",
+      "placeholder": "priority",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "priority",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Impact",
+      "placeholder": "impact",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "impact",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Remark",
+      "placeholder": "remarks",
+      "applyMaskOn": "change",
+      "tableView": true,
+      "key": "remarkCategorization",
+      "type": "textfield",
+      "input": true
+    },
+    {
+      "label": "Submit",
+      "showValidations": false,
+      "tableView": false,
+      "key": "submit",
+      "type": "button",
+      "input": true
+    }
+  ]
+}
