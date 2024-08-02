@@ -2,68 +2,85 @@ import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { userProfileSchema } from '../../schemas';
-import axiosInstance from '../../api/axiosInstance';
 import Swal from 'sweetalert2';
 import Select from 'react-select';
-import axios from 'axios';
+import { fetchRoles } from '../../services/RoleService';
+import { fetchGroups } from '../../services/GroupService';
+import { fetchUserById, updateUserProfile } from '../../services/UserService';
 
 const initialValues = {
     username: "",
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
+    address: "",
+    city: "",
+    state: "",
     roles: [],
     group: [],
 };
 
-const groupOptions = [
-    { value: 'IT', label: 'IT' },
-    { value: 'Business', label: 'Business' },
-    { value: 'Marketing', label: 'Marketing' },
-    { value: 'Finance', label: 'Finance' },
-    { value: 'Sales', label: 'Sales' },
-];
-
-const rolesOptions = [
-    { value: 'ADMIN', label: 'Admin', id: 1, desc: 'full access' },
-    { value: 'USER', label: 'User', id: 2, desc: 'limited access' },
-    { value: 'FRONTEND', label: 'Frontend', id: 3, desc: 'frontend access' },
-    { value: 'BACKEND', label: 'Backend', id: 4, desc: 'backend access' },
-];
-
 export const UpdateProfile = () => {
-    const [showPassword, setShowPassword] = useState(false);
     const { id: userId } = useParams();
     const navigate = useNavigate();
+    const [roles, setRoles] = useState([]);
+    const [groups, setGroups] = useState([]);
+
+    const fetchData = async () => {
+        try {         
+
+            const response = await fetchUserById(userId);
+            const rolesResponse = await fetchRoles();
+            const groupsResponse = await fetchGroups();
+            const userData = response;
+
+            setValues({
+                username: userData.username,
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+                email: userData.email,
+                address: userData.address,
+                city: userData.city,
+                state: userData.state,
+                password: "",
+                roles: rolesResponse
+                    .filter(role => userData.roleId.includes(role.id))
+                    .map(role => ({ value: role.id, label: role.name })),
+                group: groupsResponse
+                    .filter(group => userData.group.includes(group.id))
+                    .map(group => ({ value: group.id, label: group.name })),
+            });
+
+            setRoles(rolesResponse.map(role => ({ value: role.id, label: role.name })));
+            setGroups(groupsResponse.map(group => ({ value: group.id, label: group.name })));
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     const { values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue, setValues } = useFormik({
         initialValues: initialValues,
-        validationSchema: userProfileSchema,
+        // validationSchema: userProfileSchema,
         onSubmit: async (values, { resetForm }) => {
             try {
-                console.log("submitted values", values);
-                // Transform roles if needed
                 const transformedValues = {
                     ...values,
-                    roles: values.roles.map(roleValue => {
-                        const role = rolesOptions.find(option => option.value === roleValue.value);
-                        return {
-                            id: role.id,
-                            name: role.value,
-                            desc: role.desc,
-                        };
-                    }),
+                    roleId: values.roles.map(role => role.value),
+                    group: values.group.map(group => group.value),
                 };
-                console.log("transformedValues", transformedValues);
-                const response = await axiosInstance.put(`/update-profile?id=${userId}`, transformedValues);
-                if (response.status === 201) {
+                console.log("transformedValues",transformedValues)
+                const response = await updateUserProfile(userId, transformedValues);
+                if (response.status === 200) {
                     Swal.fire({
                         title: "Update Successful",
                         icon: "success",
                         timer: 1500,
                     });
-                    navigate("/");
+                    navigate("/user-list");
                 } else {
                     Swal.fire({
                         title: "Error",
@@ -86,39 +103,12 @@ export const UpdateProfile = () => {
         },
     });
 
-    const fetchData = async () => {
-        try {
-            const response = await axiosInstance.get(`/user?id=${userId}`);
-            const userData = response.data;
-            console.log("single user", userData);
-            setValues({
-                username: userData.username,
-                firstName: userData.firstName,
-                lastName: userData.lastName,
-                email: userData.email,
-                password: "",
-                roles: userData.roleId,
-                group: userData.group,
-            });
-        } catch (error) {
-            console.error("Error fetching user data:", error);
-        }
+    const handleRoleChange = selectedRoles => {
+        setFieldValue('roles', selectedRoles);
     };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    const handleGroupChange = selectedOptions => {
-        setFieldValue('group', selectedOptions ? selectedOptions.map(option => option.value) : []);
-    };
-
-    const handleRolesChange = selectedOptions => {
-        setFieldValue('roles', selectedOptions ? selectedOptions : []);
-    };
-
-    const toggleShowPassword = () => {
-        setShowPassword(!showPassword);
+    const handleGroupChange = selectedGroups => {
+        setFieldValue('group', selectedGroups);
     };
 
     return (
@@ -213,35 +203,99 @@ export const UpdateProfile = () => {
                                     </div>
                                 )}
                             </div>
-                            {/* <div className="mb-4">
+                            <div className="mb-4">
+                                <label className="form-label d-flex justify-content-between" htmlFor="address">
+                                    Address
+                                </label>
+                                <div className="input-group input-group-merge">
+                                    <input
+                                        type="text"
+                                        id="address"
+                                        className="form-control"
+                                        name="address"
+                                        value={values.address}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        placeholder="Enter address"
+                                    />
+                                </div>
+                                {errors.address && touched.address && (
+                                    <div className="form-error" style={{ color: "red" }}>
+                                        {errors.address}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="mb-4">
+                                <label className="form-label d-flex justify-content-between" htmlFor="city">
+                                    City
+                                </label>
+                                <div className="input-group input-group-merge">
+                                    <input
+                                        type="text"
+                                        id="city"
+                                        className="form-control"
+                                        name="city"
+                                        value={values.city}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        placeholder="Enter city"
+                                    />
+                                </div>
+                                {errors.city && touched.city && (
+                                    <div className="form-error" style={{ color: "red" }}>
+                                        {errors.city}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="mb-4">
+                                <label className="form-label d-flex justify-content-between" htmlFor="state">
+                                    State
+                                </label>
+                                <div className="input-group input-group-merge">
+                                    <input
+                                        type="text"
+                                        id="state"
+                                        className="form-control"
+                                        name="state"
+                                        value={values.state}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        placeholder="Enter state"
+                                    />
+                                </div>
+                                {errors.state && touched.state && (
+                                    <div className="form-error" style={{ color: "red" }}>
+                                        {errors.state}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="mb-4">
                                 <label htmlFor="roles" className="form-label d-flex justify-content-between">Roles</label>
                                 <Select
                                     id="roles"
                                     name="roles"
-                                    options={rolesOptions}
+                                    options={roles}
                                     isMulti
                                     value={values.roles}
-                                    onChange={handleRolesChange}
+                                    onChange={handleRoleChange}
                                     classNamePrefix="react-select"
-                                    getOptionLabel={(option) => option.label}
-                                    getOptionValue={(option) => option.value}
                                 />
                                 {errors.roles && touched.roles && (
                                     <div className="form-error" style={{ color: "red" }}>
                                         {errors.roles}
                                     </div>
                                 )}
-                            </div> */}
-                            {/* <div className="mb-4">
+                            </div>
+                            <div className="mb-4">
                                 <label className="form-label d-flex justify-content-between" htmlFor="group">
                                     Group
                                 </label>
                                 <Select
                                     id="group"
                                     name="group"
-                                    options={groupOptions}
+                                    options={groups}
                                     isMulti
-                                    value={groupOptions.filter(option => values.group.includes(option.value))}
+                                    value={values.group}
                                     onChange={handleGroupChange}
                                     classNamePrefix="react-select"
                                 />
@@ -250,7 +304,7 @@ export const UpdateProfile = () => {
                                         {errors.group}
                                     </div>
                                 )}
-                            </div> */}
+                            </div>
                             <button type="submit" className="btn btn-primary">
                                 Submit
                             </button>

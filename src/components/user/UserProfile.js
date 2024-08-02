@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate, useParams } from 'react-router-dom';
 import { userProfileSchema } from '../../schemas';
-import axiosInstance from '../../api/axiosInstance';
 import Swal from 'sweetalert2';
 import Select from 'react-select';
+import { createUsers } from '../../services/UserService';
 
 const initialValues = {
     username: "",
@@ -58,7 +58,7 @@ export const UserProfile  = () => {
                             desc: `${role} full access`,
                         })),
                     };
-                    const response = await axiosInstance.post(`/api/auth/sign-up`, payload);
+                    const response = await createUsers(payload);
                     if (response.status === 201) {
                         Swal.fire({
                             title: "Create user Successful",
