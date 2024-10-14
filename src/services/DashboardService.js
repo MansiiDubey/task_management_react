@@ -19,3 +19,8 @@ export const fetchProcessCompletedData = async () => {
     const response = await axiosInstance.get('/api/dashboard/process/completed');
     return response.data
 }
+
+export const fetchTaskCompletionTimeData = async () => {
+   const response = await axiosInstance.get('/api/dashboard/task/completion-time');
+    return response.data;
+  };

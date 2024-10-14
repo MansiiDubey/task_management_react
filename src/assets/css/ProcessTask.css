@@ -1,0 +1,45 @@
+.table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.table thead th {
+    background-color: #c9d6e2;
+    color: white;
+    text-align: center;
+    padding: 8px;
+}
+
+.table tbody td {
+    padding: 8px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+    .table thead, .table tbody, .table th, .table td, .table tr {
+        display: block;
+    }
+
+    .table thead {
+        float: left;
+    }
+
+    .table tbody {
+        width: auto;
+        position: relative;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .table td {
+        text-align: left;
+        padding: 10px;
+    }
+}
