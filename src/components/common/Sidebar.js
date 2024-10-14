@@ -54,17 +54,9 @@ export const Sidebar = () => {
                 </li>
                 <li className="menu-item">
                     <Link to={'/user-list'} className="menu-link">
-                        <i className="menu-icon tf-icons bx bx-envelope" />
+                        <i className="menu-icon tf-icons bx bx-user" />
                         <div className="text-truncate" data-i18n="Email">
                             Users
-                        </div>
-                    </Link>
-                </li>
-                <li className="menu-item">
-                    <Link to={'/forms'}  className="menu-link">
-                        <i className="menu-icon tf-icons bx bx-chat" />
-                        <div className="text-truncate" data-i18n="Chat">
-                            Forms
                         </div>
                     </Link>
                 </li>
@@ -87,7 +79,7 @@ export const Sidebar = () => {
 
                 <li className="menu-item">
                     <Link to={'/roles'} className="menu-link">
-                        <i className="menu-icon tf-icons bx bx-cart-alt" />
+                        <i className="menu-icon tf-icons bx bx-check-shield" />
                         <div className="text-truncate" data-i18n="eCommerce">
                             Roles
                         </div>
@@ -429,78 +421,12 @@ export const Sidebar = () => {
                         </li>
                     </ul>
                 </li>
-                <li className="menu-item">
-                    <a href="" className="menu-link menu-toggle">
-                        <i className="menu-icon tf-icons bx bx-user" />
-                        <div className="text-truncate" data-i18n="Users">
-                            Users
-                        </div>
-                    </a>
-                    <ul className="menu-sub">
-                        <li className="menu-item">
-                            <a href="app-user-list.html" className="menu-link">
-                                <div className="text-truncate" data-i18n="List">
-                                    List
-                                </div>
-                            </a>
-                        </li>
-                        <li className="menu-item">
-                            <a href="" className="menu-link menu-toggle">
-                                <div className="text-truncate" data-i18n="View">
-                                    View
-                                </div>
-                            </a>
-                            <ul className="menu-sub">
-                                <li className="menu-item">
-                                    <a href="app-user-view-account.html" className="menu-link">
-                                        <div className="text-truncate" data-i18n="Account">
-                                            Account
-                                        </div>
-                                    </a>
-                                </li>
-                                <li className="menu-item">
-                                    <a href="app-user-view-security.html" className="menu-link">
-                                        <div className="text-truncate" data-i18n="Security">
-                                            Security
-                                        </div>
-                                    </a>
-                                </li>
-                                <li className="menu-item">
-                                    <a href="app-user-view-billing.html" className="menu-link">
-                                        <div className="text-truncate" data-i18n="Billing & Plans">
-                                            Billing &amp; Plans
-                                        </div>
-                                    </a>
-                                </li>
-                                <li className="menu-item">
-                                    <a
-                                        href="app-user-view-notifications.html"
-                                        className="menu-link"
-                                    >
-                                        <div className="text-truncate" data-i18n="Notifications">
-                                            Notifications
-                                        </div>
-                                    </a>
-                                </li>
-                                <li className="menu-item">
-                                    <a
-                                        href="app-user-view-connections.html"
-                                        className="menu-link"
-                                    >
-                                        <div className="text-truncate" data-i18n="Connections">
-                                            Connections
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+               
                 <li className="menu-item">
                     <a href="" className="menu-link menu-toggle">
                         <i className="menu-icon tf-icons bx bx-check-shield" />
                         <div className="text-truncate" data-i18n="Roles & Permissions">
-                            Roles &amp; Permissions
+                         Permissions
                         </div>
                     </a>
                     <ul className="menu-sub">

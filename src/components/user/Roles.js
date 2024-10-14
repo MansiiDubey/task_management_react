@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { deleteRole, fetchRoles } from '../../services/RoleService';
+import { BsPencilSquare } from 'react-icons/bs';
+import { RiDeleteBin5Line } from 'react-icons/ri';
 
 export const Roles = () => {
     const [roles, setRoles] = useState([]);
@@ -33,42 +35,42 @@ export const Roles = () => {
 
     const handleDeleteRole = async (roleId) => {
         const result = await Swal.fire({
-          title: "Are you sure?",
-          text: "Do you want to delete this role?",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!",
+            title: "Are you sure?",
+            text: "Do you want to delete this role?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
         });
-    
+
         if (result.isConfirmed) {
-          try {
-            await deleteRole(roleId);
-            setRoles(roles.filter((role) => role.id !== roleId));
-            Swal.fire({
-              title: "Deleted!",
-              text: "The role has been deleted.",
-              icon: "success",
-              timer: 1500,
-            });
-          } catch (error) {
-            console.error("Error deleting role:", error);
-            Swal.fire({
-              title: "Error",
-              text: "An error occurred while deleting the role.",
-              icon: "error",
-              timer: 1500,
-            });
-          }
+            try {
+                await deleteRole(roleId);
+                setRoles(roles.filter((role) => role.id !== roleId));
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "The role has been deleted.",
+                    icon: "success",
+                    timer: 1500,
+                });
+            } catch (error) {
+                console.error("Error deleting role:", error);
+                Swal.fire({
+                    title: "Error",
+                    text: "An error occurred while deleting the role.",
+                    icon: "error",
+                    timer: 1500,
+                });
+            }
         }
-      };
-    
+    };
+
     return (
         <div className="row">
             <div className="col-lg-12 mb-4 mb-md-0">
                 <div className="card">
-                    <div className="table-responsive text-nowrap">
+                    <div className="table-responsive">
                         <div className="col-12 order-5">
                             <div className="card">
                                 <div className="card-header d-flex align-items-center justify-content-between">
@@ -80,35 +82,35 @@ export const Roles = () => {
                                     </div>
                                 </div>
                                 <div className="card-datatable table-responsive">
-                                    <div id="DataTables_Table_0_wrapper" className="dataTables_wrapper dt-bootstrap5 no-footer">
-                                        <div className="table-responsive">
-                                            <table className="dt-route-vehicles table dataTable no-footer dtr-column">
-                                                <thead className="border-top">
-                                                    <tr>
-                                                        <th>Name</th>
-                                                        <th>Description</th>
-                                                        <th>Delete</th>
-                                                        <th>Action</th>
+                                    <div className="table-responsive">
+                                        <table className="table table-bordered table-hover">
+                                            <thead className="thead-dark">
+                                                <tr>
+                                                    <th>Index</th>
+                                                    <th>Name</th>
+                                                    <th>Description</th>
+                                                    <th>Delete</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {roles?.map((role, index) => (
+                                                    <tr key={index}>
+                                                        <td>{index + 1}</td>
+                                                        <td>{role.name}</td>
+                                                        <td>{role.desc}</td>
+                                                        <td>
+                                                            <RiDeleteBin5Line onClick={() => handleDeleteRole(role.id)} />
+                                                        </td>
+                                                        <td>
+                                                            <Link to={`/updateroles/${role.id}`}>
+                                                                <BsPencilSquare />
+                                                            </Link>
+                                                        </td>
                                                     </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {roles?.map((role, index) => (
-                                                        <tr key={index}>
-                                                            <td>{role.name}</td>
-                                                            <td>{role.desc}</td>
-                                                            <td>
-                                                                <button onClick={() => handleDeleteRole(role.id)}>Delete</button>
-                                                            </td>
-                                                            <td>
-                                                                <Link to={`/updateroles/${role.id}`}>
-                                                                    <button>Update</button>
-                                                                </Link>
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                ))}
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

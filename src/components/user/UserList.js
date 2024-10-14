@@ -5,6 +5,8 @@ import { FaCirclePlus } from 'react-icons/fa6';
 import { fetchRoleById } from '../../services/RoleService';
 import { fetchGroupById } from '../../services/GroupService';
 import { deleteUser, fetchUsers } from '../../services/UserService';
+import { BsPencilSquare } from 'react-icons/bs';
+import { RiDeleteBin5Line } from 'react-icons/ri';
 
 export const UserList = () => {
     const [data, setData] = useState([]);
@@ -125,9 +127,10 @@ export const UserList = () => {
                                 <div className="card-datatable table-responsive">
                                     <div id="DataTables_Table_0_wrapper" className="dataTables_wrapper dt-bootstrap5 no-footer">
                                         <div className="table-responsive">
-                                            <table className="dt-route-vehicles table dataTable no-footer dtr-column">
+                                        <table className="table table-bordered table-hover">
                                                 <thead className="border-top">
                                                     <tr>
+                                                        <th>Index</th>
                                                         <th>Username</th>
                                                         <th>Firstname</th>
                                                         <th>Lastname</th>
@@ -141,16 +144,18 @@ export const UserList = () => {
                                                 <tbody>
                                                     {data?.map((user, index) => (
                                                         <tr key={index}>
+                                                            <td>{index + 1}</td>
                                                             <td>{user.username}</td>
                                                             <td>{user.firstName}</td>
                                                             <td>{user.lastName}</td>
                                                             <td>{user.email}</td>
                                                             <td>{formatGroup(user.groups)}</td>
                                                             <td>{formatRoles(user.roles)}</td>
-                                                            <td><button onClick={() => handleDeleteUser(user.userId)}>Delete</button></td>
+                                                            <td>
+                                                            <RiDeleteBin5Line onClick={() => handleDeleteUser(user.userId)}/></td>
                                                             <td>
                                                                 <Link to={`/update-profile/${user.userId}`}>
-                                                                    <button>Update</button>
+                                                                <BsPencilSquare />
                                                                 </Link>
                                                             </td>
                                                         </tr>
