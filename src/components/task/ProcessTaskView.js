@@ -4,9 +4,10 @@ import { Link, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
 import { fetchCompletedTaskByTaskKey } from '../../services/TaskService';
+import axiosInstance from '../../api/axiosInstance';
 
 
-export const CompletedTaskView = () => {
+export const ProcessTaskView = () => {
     const [activeTab, setActiveTab] = useState('form');
     const [formName, setFormName] = useState("");
     const [formJson, setFormJson] = useState(null);
@@ -22,10 +23,10 @@ export const CompletedTaskView = () => {
     const formHandleSubmit = (submission) => {
         console.log("Submitted Values:", submission.data);
     };
-
+console.log("taskKey",taskKey)
     const fetchData = async () => {
         try {
-            const response = await fetchCompletedTaskByTaskKey(taskKey);
+            const response = await axiosInstance.get(`/process-instance-variable?processInstanceKey=${taskKey}&from=0`);
             console.log("fetchData response:", response?.data[0]);
 
             const task = response?.data[0];
@@ -66,7 +67,7 @@ export const CompletedTaskView = () => {
         <div>
             <div className="d-flex justify-content-between align-items-center mb-4">
             <h3 className="py-3 mb-4">
-                <span className="text-muted fw-light"></span> Completed Task View
+                <span className="text-muted fw-light"></span> Process Task View
             </h3>
                 <Link to={-1}>
                     <Button className="d-flex align-items-center">
@@ -76,10 +77,8 @@ export const CompletedTaskView = () => {
                 </Link>
             </div>
         <div>
-            {/* <h4 className="py-3 mb-4">
-                <span className="text-muted fw-light"></span> Completed Task View
-            </h4> */}
-            <div className="row">
+            
+                        <div className="row">
                 <div className="col-md-12">
                     <ul className="nav nav-pills flex-column flex-md-row mb-3">
                         <li className="nav-item">

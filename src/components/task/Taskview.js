@@ -9,6 +9,7 @@ import { Button } from 'react-bootstrap';
 import { BsArrowLeftCircleFill } from 'react-icons/bs';
 import { fetchUserTaskByTaskKey, fetchFormJsonByTaskName, submitTaskData } from '../../services/TaskService';
 import { apiUrl } from '../../api/axiosInstance';
+import { Documents } from '../common/Documents';
 
 export const Taskview = () => {
     const [activeTab, setActiveTab] = useState('form');
@@ -17,6 +18,7 @@ export const Taskview = () => {
     const [formJson, setFormJson] = useState(null);
     const [variables, setVariables] = useState({});
     const [processKey, setProcessKey] = useState();
+    const [userTaskKey, setuserTaskKey] =useState();
 
     useEffect(() => {
         fetchData();
@@ -33,6 +35,10 @@ export const Taskview = () => {
             const proKey = response.data[0].processInstanceKey;
             console.log("proKey",proKey);
             setProcessKey(proKey);
+            const userKey = response.data[0].userTaskKey;
+            console.log("userTaskKey",userKey);
+            setuserTaskKey(userKey);
+
 
             const responseForm = await fetch(`/json/${form}.json`);
 
@@ -157,8 +163,8 @@ export const Taskview = () => {
                         )}
                         {activeTab === 'documents' && (
                             <div className="card-body">
-                                <h5 className="card-header">Documents</h5>
-                                <p>This is the documents tab content.</p>
+                                <h3 className="card-header">Documents</h3>
+                                <Documents usertask={userTaskKey}/>
                             </div>
                         )}
                         {activeTab === 'audits' && (

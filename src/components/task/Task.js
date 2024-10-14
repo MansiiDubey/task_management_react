@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { fetchTasks } from '../../services/TaskService';
+import { BsPencilSquare } from 'react-icons/bs';
 
 export const Task = () => {
+    const [data, setData] = useState([]); // For holding task data
+    const [error, setError] = useState(null); // Error handling should use an object, not an array
 
-    const [data, setData] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await fetchTasks();
-                console.log("task data", response)
-                setData(response);
-
+                console.log('task data', response);
+                setData(response); // Set data if successful
             } catch (error) {
+                setError(error); // Set error object
                 console.error('Error fetching data:', error);
             }
         };
 
-        fetchData();
+        fetchData(); // Call the fetch function on component mount
     }, []);
+
     return (
         <div>
             <div className="row">
@@ -35,11 +38,14 @@ export const Task = () => {
                                     <div className="card-datatable table-responsive">
                                         <div
                                             id="DataTables_Table_0_wrapper"
-                                            className="dataTables_wrapper dt-bootstrap5 no-footer">
+                                            className="dataTables_wrapper dt-bootstrap5 no-footer"
+                                        >
                                             <div className="table-responsive">
-                                                <table className="dt-route-vehicles table dataTable no-footer dtr-column">
+                                            <table className="table table-bordered table-hover">
+                                                
                                                     <thead className="border-top">
                                                         <tr>
+                                                            <th>Index</th>
                                                             <th>Taskname</th>
                                                             <th>Assignee</th>
                                                             <th>Priority</th>
@@ -48,24 +54,39 @@ export const Task = () => {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {
+                                                        {/* Error Display */}
+                                                        {error ? (
+                                                            <tr>
+                                                                <td colSpan={5} style={{ textAlign: 'center', color: 'red' }}>
+                                                                    {error.message || 'Error fetching tasks.'}
+                                                                </td>
+                                                            </tr>
+                                                        ) : data.length === 0 ? (
+                                                            // No Data Available Message
+                                                            <tr>
+                                                                <td colSpan={5} style={{ textAlign: 'center' }}>
+                                                                    No data available
+                                                                </td>
+                                                            </tr>
+                                                        ) : (
+                                                            // Render data if available
                                                             data.map((task, index) => {
                                                                 return (
                                                                     <tr key={index}>
-                                                                        <td>{task?.taskId}</td>
-                                                                        <td>{task?.assignee}</td>
-                                                                        <td>{task?.variables?.priority}</td>
-                                                                        <td>{task?.variables?.subject}</td>
+                                                                        <td>{index + 1}</td>
+                                                                        <td>{task?.taskId || '-'}</td>
+                                                                        <td>{task?.assignee || '-'}</td>
+                                                                        <td>{task?.variables?.priority || '-'}</td>
+                                                                        <td>{task?.variables?.subject || '-'}</td>
                                                                         <td>
-
                                                                             <Link to={`/taskview/${task.userTaskKey}`}>
-                                                                                <button>Button</button>
+                                                                                <BsPencilSquare />
                                                                             </Link>
                                                                         </td>
                                                                     </tr>
-                                                                )
+                                                                );
                                                             })
-                                                        }
+                                                        )}
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -73,12 +94,10 @@ export const Task = () => {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
